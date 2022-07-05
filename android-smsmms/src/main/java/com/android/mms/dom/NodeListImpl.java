@@ -74,7 +74,19 @@ public class NodeListImpl implements NodeList {
         if (mStaticNodes == null) {
             fillList(mRootNode);
             try {
-                node = mSearchNodes.get(index);
+                
+				/* ********OpenRefactory Warning********
+				 Possible null pointer Dereference!
+				 Path: 
+					File: SmilLayoutElementImpl.java, Line: 49
+						childNodes.item(i)
+						 Information about field mSearchNodes (from class NodeListImpl) is passed through the method call. This later results into a null pointer dereference
+						The expression is enclosed inside an If statement.
+					File: NodeListImpl.java, Line: 77
+						node=mSearchNodes.get(index);
+						mSearchNodes is referenced in method invocation.
+				*/
+				node = mSearchNodes.get(index);
             } catch (IndexOutOfBoundsException e) {
                 // Do nothing and return null
             }
