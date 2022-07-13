@@ -479,7 +479,43 @@ public class ThemeManager {
 
     @ColorInt
     public static int getColor() {
-        return mActiveColor;
+        
+		/* ********OpenRefactory Warning********
+		 Potential data race detected!
+		
+		The data access in 
+		return mActiveColor;
+		
+		may have race with 1 other access.
+		
+		The mentioned access is performed in a thread spawned by 
+		new Thread(){
+		  public void run(){
+		    long[] ids=getUnreadIds();
+		    if (ids.length > 0) {
+		      new DefaultSmsHelper(context,R.string.not_default_mark_read).showIfNotDefault(null);
+		      ContentValues cv=new ContentValues();
+		      cv.put("read",true);
+		      cv.put("seen",true);
+		      for (      long id : ids) {
+		        context.getContentResolver().update(getUri(),cv,SmsHelper.COLUMN_ID + "=" + id,null);
+		      }
+		      NotificationManager.update(context);
+		      UnreadBadgeService.update(context);
+		    }
+		  }
+		}
+		.start()
+		in file, ConversationLegacy.java.
+		
+		It may have contending concurrent access 
+		
+		in file, ThemeManager.java, class ThemeManager, method setActiveColor, 
+		
+		mActiveColor=color
+		
+		*/
+		return mActiveColor;
     }
 
     @ColorInt
