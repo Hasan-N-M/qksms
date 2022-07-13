@@ -813,7 +813,19 @@ public class TransactionService extends Service implements Observer {
             synchronized (mProcessing) {
                 for (Transaction t : mPending) {
                     if (t.isEquivalent(transaction)) {
-                        Timber.v("Transaction already pending: " + transaction.getServiceId());
+                        
+						/* ********OpenRefactory Warning********
+						 Possible null pointer Dereference!
+						 Path: 
+							File: TransactionService.java, Line: 697
+								processTransaction(transaction)
+								 Information is passed through the method call via transaction to the formal param transaction of the method. This later results into a null pointer dereference.
+								The expression is enclosed inside an If statement.
+							File: TransactionService.java, Line: 816
+								Timber.v("Transaction already pending: " + transaction.getServiceId());
+								transaction is referenced in method invocation.
+						*/
+						Timber.v("Transaction already pending: " + transaction.getServiceId());
                         return true;
                     }
                 }
