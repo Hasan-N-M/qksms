@@ -48,7 +48,17 @@ public class PhoneUtils {
         if (parsed == null) {
             return phoneText;
         }
-        return phoneNumberUtil
+        /* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: MmsConfig.java, Line: 569
+				return PhoneUtils.getNationalNumber(telephonyManager,subId,getLine1(context,subId));
+				 Information is passed through the method call that later results into a null pointer dereference.
+			File: PhoneUtils.java, Line: 51
+				return phoneNumberUtil.format(parsed,PhoneNumberUtil.PhoneNumberFormat.NATIONAL).replaceAll("\\D","");
+				Method format may return null and is referenced in method invocation.
+		*/
+		return phoneNumberUtil
                 .format(parsed, PhoneNumberUtil.PhoneNumberFormat.NATIONAL)
                 .replaceAll("\\D", "");
     }
