@@ -64,7 +64,30 @@ public class RecipientIdCache {
             LogTag.debug("[RecipientIdCache] fill: begin");
         }
 
-        Context context = sInstance.mContext;
+        /* ********OpenRefactory Warning********
+		 Potential data race detected!
+		
+		The data access in 
+		context=sInstance.mContext
+		may have race with 1 other access.
+		
+		The mentioned access is performed in a thread spawned by 
+		new Thread(new Runnable(){
+		  public void run(){
+		    fill();
+		  }
+		}
+		,"RecipientIdCache.init").start()
+		in file, RecipientIdCache.java.
+		
+		It may have contending concurrent access 
+		
+		in file, RecipientIdCache.java, class RecipientIdCache, method init, 
+		
+		sInstance=new RecipientIdCache(context)
+		
+		*/
+		Context context = sInstance.mContext;
         Cursor c = SqliteWrapper.query(context, context.getContentResolver(),
                 sAllCanonical, null, null, null, null);
         if (c == null) {
