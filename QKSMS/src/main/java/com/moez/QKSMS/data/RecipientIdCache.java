@@ -224,7 +224,31 @@ public class RecipientIdCache {
         synchronized (sInstance) {
             Log.d(TAG, "*** Recipient ID cache dump ***");
             for (Long id : sInstance.mCache.keySet()) {
-                Log.d(TAG, id + ": " + sInstance.mCache.get(id));
+                
+				/* ********OpenRefactory Warning********
+				 Potential data race detected!
+				
+				The data access in 
+				sInstance.mCache.get(id)
+				may have race with 1 other access.
+				
+				The mentioned access is performed in a thread spawned by 
+				new Thread(new Runnable(){
+				  public void run(){
+				    fill();
+				  }
+				}
+				,"RecipientIdCache.init").start()
+				in file, RecipientIdCache.java.
+				
+				It may have contending concurrent access 
+				
+				in file, RecipientIdCache.java, class RecipientIdCache, method init, 
+				
+				sInstance=new RecipientIdCache(context)
+				
+				*/
+				Log.d(TAG, id + ": " + sInstance.mCache.get(id));
             }
         }
     }
