@@ -870,7 +870,18 @@ public class TransactionService extends Service implements Observer {
 
             Timber.v("processTransaction: starting transaction " + transaction);
 
-            // Attach to transaction and process it
+            /* ********OpenRefactory Warning********
+			 Possible null pointer Dereference!
+			 Path: 
+				File: TransactionService.java, Line: 697
+					processTransaction(transaction)
+					 Information is passed through the method call via transaction to the formal param transaction of the method. This later results into a null pointer dereference.
+					The expression is enclosed inside an If statement.
+				File: TransactionService.java, Line: 862
+					transaction.attach(TransactionService.this);
+					transaction is referenced in method invocation.
+			*/
+			// Attach to transaction and process it
             transaction.attach(TransactionService.this);
             transaction.process();
             return true;
