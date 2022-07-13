@@ -356,7 +356,24 @@ public class PduPart {
       *  @return the name
       */
      public byte[] getName() {
-         return (byte[]) mPartHeader.get(P_NAME);
+         
+		/* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: PduPersister.java, Line: 602
+				body.addPart(parts[i]);
+				 Information is passed through the method call via parts[i] to the formal param part of the method. This later results into a null pointer dereference. inside field mPartHeader ( from class PduPart).
+			File: PduBody.java, Line: 85
+				putPartToMaps(part);
+				 Information is passed through the method call via part to the formal param part of the method. This later results into a null pointer dereference. inside field mPartHeader ( from class PduPart).
+			File: PduBody.java, Line: 59
+				byte[] name=part.getName();
+				 Information about field mPartHeader (from class PduPart) is passed through the method call. This later results into a null pointer dereference
+			File: PduPart.java, Line: 359
+				return (byte[])mPartHeader.get(P_NAME);
+				mPartHeader is referenced in method invocation.
+		*/
+		return (byte[]) mPartHeader.get(P_NAME);
      }
 
      /**
