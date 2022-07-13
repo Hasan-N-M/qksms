@@ -54,7 +54,17 @@ public class SmilXmlSerializer {
             NamedNodeMap attributes = element.getAttributes();
             for (int i = 0; i < attributes.getLength(); i++) {
                 Attr attribute = (Attr)attributes.item(i);
-                writer.write(" " + attribute.getName());
+                /* ********OpenRefactory Warning********
+				 Possible null pointer Dereference!
+				 Path: 
+					File: SmilXmlSerializer.java, Line: 56
+						Attr attribute=(Attr)attributes.item(i);
+				
+					File: SmilXmlSerializer.java, Line: 57
+						writer.write(" " + attribute.getName());
+						attribute is referenced in method invocation.
+				*/
+				writer.write(" " + attribute.getName());
                 writer.write("=\"" + attribute.getValue() + "\"");
             }
         }
