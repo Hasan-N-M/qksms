@@ -63,7 +63,17 @@ public class NodeListImpl implements NodeList {
     public int getLength() {
         if (mStaticNodes == null) {
             fillList(mRootNode);
-            return mSearchNodes.size();
+            /* ********OpenRefactory Warning********
+			 Possible null pointer Dereference!
+			 Path: 
+				File: SmilLayoutElementImpl.java, Line: 47
+					int childrenCount=childNodes.getLength();
+					 Information about field mSearchNodes (from class NodeListImpl) is passed through the method call. This later results into a null pointer dereference
+				File: NodeListImpl.java, Line: 66
+					return mSearchNodes.size();
+					mSearchNodes is referenced in method invocation.
+			*/
+			return mSearchNodes.size();
         } else {
             return mStaticNodes.size();
         }
